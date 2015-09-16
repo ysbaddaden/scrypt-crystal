@@ -1,0 +1,15 @@
+name: scrypt
+version: 0.1.0
+
+authors:
+  - Julien Portalier <julien@portalier.com>
+  - Colin Percival
+
+license: BSD-2-Clause
+
+scripts:
+  postinstall: make lib
+
+development_dependencies:
+  minitest:
+    github: ysbaddaden/minitest.cr
