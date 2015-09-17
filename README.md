@@ -1,6 +1,6 @@
 # scrypt (crystal)
 
-Crystal bindings for Colin Perceval's scrypt library.
+Crystal bindings for Colin Percival's scrypt library.
 
 The scrypt key derivation function was originally developed for use in the
 Tarsnap online backup system and is designed to be far more secure against
