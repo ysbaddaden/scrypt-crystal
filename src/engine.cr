@@ -25,9 +25,9 @@ module Scrypt
     def self.crypto_scrypt(secret, salt, n, r, p, key_len)
       buffer = Slice(UInt8).new(key_len)
 
-      secret_len = LibC::SizeT.cast(secret.bytesize)
-      salt_len = LibC::SizeT.cast(salt.bytesize / 2)
-      buffer_len = LibC::SizeT.cast(key_len)
+      secret_len = secret.bytesize
+      salt_len = salt.bytesize / 2
+      buffer_len = key_len
 
       salt_slice = Slice(UInt8).new(salt.bytesize / 2)
 
@@ -42,7 +42,7 @@ module Scrypt
     end
 
     def self.calibrate(max_mem = DEFAULT_MAX_MEM, max_memfrac = DEFAULT_MAX_MEMFRAC, max_time = DEFAULT_MAX_TIME)
-      if LibScrypt.memtouse(LibC::SizeT.cast(max_mem), LibC::Double.cast(max_memfrac), out memlimit) != 0
+      if LibScrypt.memtouse(max_mem, max_memfrac, out memlimit) != 0
         raise Error.new("can't determine memlimit")
       end
 

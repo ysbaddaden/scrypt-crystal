@@ -40,4 +40,20 @@ class Scrypt::PasswordTest < Minitest::Test
   def test_equals
     assert Password.create("あずまんが大王") == "あずまんが大王"
   end
+
+  def test_clamps_key_len
+    pw = Password.create("secret", key_len: 8)
+    assert_equal 16, pw.digest.size / 2
+
+    pw = Password.create("secret", key_len: 2048)
+    assert_equal 512, pw.digest.size / 2
+  end
+
+  def test_clamps_salt_size
+    pw = Password.create("secret", salt_size: 1)
+    assert_equal 8, pw.salt.size
+
+    pw = Password.create("secret", salt_size: 128)
+    assert_equal 32, pw.salt.size
+  end
 end

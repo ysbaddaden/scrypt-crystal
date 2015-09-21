@@ -7,15 +7,9 @@ module Scrypt
                     max_memfrac = DEFAULT_MAX_MEMFRAC,
                     max_time = DEFAULT_MAX_TIME
                    )
-      key_len = 16 if key_len < 16
-      key_len = 512 if key_len > 512
-
-      salt_size = 8 if salt_size < 8
-      salt_size = 32 if salt_size > 32
-
-      salt = Engine.generate_salt(salt_size)
+      salt = Engine.generate_salt(salt_size.clamp(8, 32))
       hashed_password = Engine.hash_secret(password, salt,
-                                           key_len: key_len,
+                                           key_len: key_len.clamp(16, 512),
                                            max_mem: max_mem,
                                            max_memfrac: max_memfrac,
                                            max_time: max_time
