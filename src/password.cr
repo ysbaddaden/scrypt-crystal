@@ -1,3 +1,5 @@
+require "crypto/subtle"
+
 module Scrypt
   class Password
     def self.create(password,
@@ -24,7 +26,7 @@ module Scrypt
     def ==(password)
       key_len = digest.bytesize / 2
       hashed_password = Engine.hash_secret(password, salt, key_len: key_len, cost: cost)
-      @raw_hash == hashed_password
+      Crypto::Subtle.constant_time_compare(@raw_hash.to_slice, hashed_password.to_slice) == 1
     end
 
     def cost
