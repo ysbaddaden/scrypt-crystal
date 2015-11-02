@@ -1,5 +1,6 @@
 name: scrypt
 version: 0.1.0
+description: Crystal bindings for Colin Percival's scrypt library
 
 authors:
   - Julien Portalier <julien@portalier.com>
