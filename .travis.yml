@@ -1,11 +1,7 @@
 language: crystal
 
-before_install: |
-  wget https://github.com/ysbaddaden/shards/releases/download/v0.4.0/shards-0.4.0_linux_amd64.tar.gz
-  tar zxf shards-0.4.0_linux_amd64.tar.gz
-
 install:
-  - ./shards install
+  - crystal shards install
 
 before_script:
   - make lib
