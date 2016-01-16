@@ -9,7 +9,7 @@ authors:
 license: BSD-2-Clause
 
 scripts:
-  postinstall: make lib
+  postinstall: cd ext && make
 
 development_dependencies:
   minitest:

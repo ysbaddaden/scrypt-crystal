@@ -1,10 +1,7 @@
 language: crystal
 
-install:
-  - crystal shards install
-
 before_script:
-  - make lib
+  - make
 
 script:
   - make test
