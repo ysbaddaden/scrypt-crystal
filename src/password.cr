@@ -19,7 +19,9 @@ module Scrypt
       new(hashed_password)
     end
 
-    def initialize(@raw_hash)
+    @parts : Array(String)
+
+    def initialize(@raw_hash : String)
       @parts = @raw_hash.split("$")
     end
 
