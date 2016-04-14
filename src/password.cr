@@ -28,7 +28,7 @@ module Scrypt
     def ==(password)
       key_len = digest.bytesize / 2
       hashed_password = Engine.hash_secret(password, salt, key_len: key_len, cost: cost)
-      Crypto::Subtle.constant_time_compare(@raw_hash.to_slice, hashed_password.to_slice) == 1
+      Crypto::Subtle.constant_time_compare(@raw_hash.to_slice, hashed_password.to_slice)
     end
 
     def cost
