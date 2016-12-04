@@ -1,4 +1,4 @@
-@[Link(ldflags: "-L#{__DIR__}/ext -lscrypt")]
+@[Link(ldflags: "-L#{__DIR__}/../ext -lscrypt")]
 lib LibScrypt
   fun crypto_scrypt(
     passwd : UInt8*,

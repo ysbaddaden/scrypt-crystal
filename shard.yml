@@ -1,12 +1,10 @@
 name: scrypt
-version: 0.1.0
+version: 0.2.0
 description: Crystal bindings for Colin Percival's scrypt library
 
 authors:
   - Julien Portalier <julien@portalier.com>
   - Colin Percival
-
-license: BSD-2-Clause
 
 scripts:
   postinstall: cd ext && make
@@ -14,3 +12,7 @@ scripts:
 development_dependencies:
   minitest:
     github: ysbaddaden/minitest.cr
+
+crystal: 0.20.0
+
+license: BSD-2-Clause

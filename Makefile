@@ -1,12 +1,12 @@
 .PHONY: test
 
-all: src/ext/libscrypt.a
+all: ext/libscrypt.a
 
-src/ext/libscrypt.a:
-	cd src/ext && make
+ext/libscrypt.a:
+	cd ext && make
 
 clean:
-	cd src/ext && make clean
+	cd ext && make clean
 
 test:
 	crystal test/*_test.cr -- --verbose
