@@ -1,5 +1,5 @@
 name: scrypt
-version: 0.2.0
+version: 0.2.1
 description: Crystal bindings for Colin Percival's scrypt library
 
 authors:
@@ -13,6 +13,6 @@ development_dependencies:
   minitest:
     github: ysbaddaden/minitest.cr
 
-crystal: 0.20.0
+crystal: 0.20.5
 
 license: BSD-2-Clause
