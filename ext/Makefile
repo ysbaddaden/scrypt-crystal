@@ -1,4 +1,4 @@
-VERSION ?= 1.2.0
+VERSION ?= 1.2.1
 SCRYPT = scrypt-$(VERSION)
 
 SOURCES = $(wildcard *.c)
@@ -12,7 +12,7 @@ libscrypt.a: $(OBJECTS)
 	ranlib libscrypt.a
 
 %.o: %.c
-	$(CC) -g -O2 -c -o $@ $<
+	$(CC) -std=gnu99 -Wall -g -O2 -c -o $@ $<
 
 $(SCRYPT):
 	curl -L http://www.tarsnap.com/scrypt/$(SCRYPT).tgz | tar xz
