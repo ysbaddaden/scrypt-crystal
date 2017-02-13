@@ -31,7 +31,7 @@ module Scrypt
 
       salt_slice = Slice(UInt8).new(salt.bytesize / 2)
 
-      1.step(salt.size, 2) do |i|
+      1.step(to: salt.size, by: 2) do |i|
         salt_slice[(i - 1) / 2] = salt[i - 1 .. i].to_u8(16)
       end
 
