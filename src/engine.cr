@@ -1,4 +1,4 @@
-require "secure_random"
+require "random/secure"
 require "./lib_scrypt"
 
 module Scrypt
@@ -19,7 +19,7 @@ module Scrypt
     end
 
     def self.generate_salt(salt_size = DEFAULT_SALT_SIZE)
-      SecureRandom.hex(salt_size / 2)
+      Random::Secure.hex(salt_size / 2)
     end
 
     def self.crypto_scrypt(secret, salt, n, r, p, key_len)
