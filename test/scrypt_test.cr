@@ -14,27 +14,27 @@ class Scrypt::PasswordTest < Minitest::Test
 
   def test_equals_ruby_hashes
     pw = Scrypt::Password.new("400$8$13$bb7cf92fe8429365$bb7441732f14c452cf731c110fa72dc7151adafeaa3b2f8af6f6cb879f03d005")
-    assert pw == "secret"
-    refute pw == "wrong"
+    assert pw.verify "secret"
+    refute pw.verify "wrong"
 
     pw = Scrypt::Password.new("400$8$13$1b632959635f453b$5975cc57ff2c24259ca90c1e8633ad70d2a91c866f96dd99e9857f244f065fa3")
-    assert pw == "battery-horse"
-    refute pw == "wrong"
+    assert pw.verify "battery-horse"
+    refute pw.verify "wrong"
 
     pw = Scrypt::Password.new("400$8$13$6757499c1cc67ad3$17f5e8dc499e39b8430e0178295146492ed97ba2e1ba8ed5bc60874989aa3e4c")
-    assert pw == "あずまんが大王"
+    assert pw.verify "あずまんが大王"
   end
 
   def test_create
     pw = Password.create("secret", key_len: 32, salt_size: 8)
     assert_match(/\A[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]{8}\$[a-z0-9]{64}\Z/, pw.to_s)
-    assert pw == "secret"
-    refute pw == "guessy"
+    assert pw.verify "secret"
+    refute pw.verify "guessy"
 
     pw = Password.create("super secret message", key_len: 64, salt_size: 32)
     assert_match(/\A[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]{32}\$[a-z0-9]{128}\Z/, pw.to_s)
-    assert pw == "super secret message"
-    refute pw == "super wrong message"
+    assert pw.verify "super secret message"
+    refute pw.verify "super wrong message"
   end
 
   def test_equals
