@@ -25,10 +25,15 @@ module Scrypt
       @parts = @raw_hash.split("$")
     end
 
-    def ==(password)
+    def verify(password : String)
       key_len = digest.bytesize / 2
       hashed_password = Engine.hash_secret(password, salt, key_len: key_len, cost: cost)
       Crypto::Subtle.constant_time_compare(@raw_hash.to_slice, hashed_password.to_slice)
+    end
+
+    @[Deprecated("Use Scrypt::Password#verify instead")]
+    def ==(password : String)
+      verify password
     end
 
     def cost
