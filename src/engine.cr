@@ -19,20 +19,20 @@ module Scrypt
     end
 
     def self.generate_salt(salt_size = DEFAULT_SALT_SIZE)
-      Random::Secure.hex(salt_size / 2)
+      Random::Secure.hex(salt_size // 2)
     end
 
     def self.crypto_scrypt(secret, salt, n, r, p, key_len)
       buffer = Slice(UInt8).new(key_len)
 
       secret_len = secret.bytesize
-      salt_len = salt.bytesize / 2
+      salt_len = salt.bytesize // 2
       buffer_len = key_len
 
-      salt_slice = Slice(UInt8).new(salt.bytesize / 2)
+      salt_slice = Slice(UInt8).new(salt.bytesize // 2)
 
       1.step(to: salt.size, by: 2) do |i|
-        salt_slice[(i - 1) / 2] = salt[i - 1 .. i].to_u8(16)
+        salt_slice[(i - 1) // 2] = salt[i - 1 .. i].to_u8(16)
       end
 
       ret = LibScrypt.crypto_scrypt(secret, secret_len, salt_slice, salt_len, n, r, p, buffer, buffer_len)
@@ -57,30 +57,30 @@ module Scrypt
       # we fix r
       r = 8_u32
 
-      if opslimit < memlimit / 32
+      if opslimit < memlimit // 32
         # we fix p
         p = 1_u32
 
         # choose n based on the CPU limit
-        max_n = opslimit / (r * 4)
+        max_n = opslimit // (r * 4)
 
         while log_n < 63
-          break if 1_u64 << log_n > max_n / 2
+          break if 1_u64 << log_n > max_n // 2
           log_n += 1
         end
       else
         # choose n based on the memory limit
-        max_n = memlimit / (r * 128)
+        max_n = memlimit // (r * 128)
 
         while log_n < 63
-          break if 1_u64 << log_n > max_n / 2
+          break if 1_u64 << log_n > max_n // 2
           log_n += 1
         end
 
         # choose p based on the CPU limit
-        max_rp = (opslimit / 4) / (1_u64 << log_n)
+        max_rp = (opslimit // 4) // (1_u64 << log_n)
         max_rp = 0x3fffffff if max_rp > 0x3fffffff
-        p = max_rp.to_u32 / r
+        p = max_rp.to_u32 // r
       end
 
       n = 1_u64 << log_n
