@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.3.1
+
+Support Crystal 0.31.0
+
 ## v0.3.0
 
 Deprecation:

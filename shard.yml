@@ -1,5 +1,5 @@
 name: scrypt
-version: 0.3.0
+version: 0.3.1
 description: Crystal bindings for Colin Percival's scrypt library
 
 authors:
