@@ -38,7 +38,7 @@ class Scrypt::PasswordTest < Minitest::Test
   end
 
   def test_equals
-    assert Password.create("あずまんが大王") == "あずまんが大王"
+    assert Password.create("あずまんが大王").verify("あずまんが大王")
   end
 
   def test_clamps_key_len
