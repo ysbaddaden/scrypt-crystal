@@ -1,12 +1,16 @@
-.PHONY: test
+.POSIX:
+
+CRYSTAL=crystal
 
 all: ext/libscrypt.a
 
 ext/libscrypt.a:
 	cd ext && make
 
-clean:
+clean: .phony
 	cd ext && make clean
 
-test:
-	crystal test/*_test.cr -- --verbose
+test: .phony
+	$(CRYSTAL) run test/*_test.cr -- --verbose
+
+.phony:
