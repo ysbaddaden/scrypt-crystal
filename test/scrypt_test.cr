@@ -27,12 +27,12 @@ class Scrypt::PasswordTest < Minitest::Test
 
   def test_create
     pw = Password.create("secret", key_len: 32, salt_size: 8)
-    assert_match(/\A[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]{8}\$[a-z0-9]{64}\Z/, pw.to_s)
+    assert_match(/\A[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]{16}\$[a-z0-9]{64}\Z/, pw.to_s)
     assert pw.verify "secret"
     refute pw.verify "guessy"
 
     pw = Password.create("super secret message", key_len: 64, salt_size: 32)
-    assert_match(/\A[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]{32}\$[a-z0-9]{128}\Z/, pw.to_s)
+    assert_match(/\A[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]+\$[a-f0-9]{64}\$[a-z0-9]{128}\Z/, pw.to_s)
     assert pw.verify "super secret message"
     refute pw.verify "super wrong message"
   end
@@ -51,9 +51,9 @@ class Scrypt::PasswordTest < Minitest::Test
 
   def test_clamps_salt_size
     pw = Password.create("secret", salt_size: 1)
-    assert_equal 8, pw.salt.size
+    assert_equal 16, pw.salt.size
 
     pw = Password.create("secret", salt_size: 128)
-    assert_equal 32, pw.salt.size
+    assert_equal 64, pw.salt.size
   end
 end
