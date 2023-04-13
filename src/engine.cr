@@ -19,7 +19,7 @@ module Scrypt
     end
 
     def self.generate_salt(salt_size = DEFAULT_SALT_SIZE)
-      Random::Secure.hex(salt_size // 2)
+      Random::Secure.hex(salt_size)
     end
 
     def self.crypto_scrypt(secret, salt, n, r, p, key_len)
